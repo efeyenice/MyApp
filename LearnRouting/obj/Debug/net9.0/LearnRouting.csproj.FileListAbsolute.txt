@@ -26,3 +26,4 @@
 /Users/macbookpro/Desktop/MyApp/LearnRouting/obj/Debug/net9.0/LearnRouting.genruntimeconfig.cache
 /Users/macbookpro/Desktop/MyApp/LearnRouting/obj/Debug/net9.0/ref/LearnRouting.dll
 /Users/macbookpro/Desktop/MyApp/LearnRouting/obj/Debug/net9.0/LearnRouting.sourcelink.json
+/Users/macbookpro/Desktop/MyApp/LearnRouting/bin/Debug/net9.0/LearnRouting.staticwebassets.runtime.json

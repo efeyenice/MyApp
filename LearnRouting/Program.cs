@@ -7,6 +7,7 @@ builder.Services.Configure<RouteOptions>(options =>
 
 var app = builder.Build();
 
+app.UseStaticFiles();
 app.UseRouting();
 
 //old way of doing routing
@@ -103,6 +104,14 @@ app.MapGet("/staff/{position:position}", async (HttpContext context) =>
     context.Response.StatusCode = 200;
     context.Response.ContentType = "text/plain";
     await context.Response.WriteAsync($"Get Staff with position: {position}");
+});
+
+//an endpoit to see an image
+app.MapGet("/image", async (HttpContext context) =>
+{
+    context.Response.StatusCode = 200;
+    context.Response.ContentType = "text/html";
+    await context.Response.WriteAsync("<html><body><h1>Image</h1><img src='/images/fatihterim.png' alt='Image' /></body></html>");
 });
 
 
