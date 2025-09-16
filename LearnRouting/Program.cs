@@ -1,7 +1,12 @@
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
+builder.Services.Configure<RouteOptions>(options =>
+{
+    options.ConstraintMap.Add("position", typeof(PositionConsrtraint));
+});
 
+app.UseRouting();
 
 //old way of doing routing
 /*
@@ -87,6 +92,18 @@ app.MapGet("/orders/{id:int}", async (HttpContext context) =>
     context.Response.ContentType = "text/plain";
     await context.Response.WriteAsync($"Get Orders with id: {id}");
 });
+
+
+
+//use of custom route constraint
+app.MapGet("/employees/{position:position}", async (HttpContext context) =>
+{
+    var position = context.Request.RouteValues["position"];
+    context.Response.StatusCode = 200;
+    context.Response.ContentType = "text/plain";
+    await context.Response.WriteAsync($"Get Staff with position: {position}");
+});
+
 
 app.Run();
 
