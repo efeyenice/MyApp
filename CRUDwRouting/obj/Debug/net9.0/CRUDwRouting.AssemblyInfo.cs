@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CRUDwRouting")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3736e1d2f949293f190717a84ebfc98bec2e5463")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a9a6a1b8d2d03f55f253e229bc6dd5291048e746")]
 [assembly: System.Reflection.AssemblyProductAttribute("CRUDwRouting")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CRUDwRouting")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

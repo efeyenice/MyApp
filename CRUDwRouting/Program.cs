@@ -7,6 +7,50 @@ app.MapGet("/", () => "Welcome to the Employee Management API!");
 
 
 
+
+
+//model binding
+app.MapGet("/employees/{id:int}", ([AsParameters] GetEmployeeParameter param) => 
+{
+    var employee = EmployeesRepository.GetEmployeeById(param.Id);
+    
+    if (employee is null)
+    {
+        return Results.NotFound();
+    }
+
+    if (!string.IsNullOrEmpty(param.Name))
+    {
+        employee.Name = param.Name;
+    }
+
+    if (!string.IsNullOrEmpty(param.Position))
+    {
+        employee.Position = param.Position;
+    }
+    return Results.Ok(employee);
+});
+
+
+//bind arrays to query string or headers
+app.MapGet("/employees/filter", (HttpRequest request) => 
+{
+    var idsFromQuery = request.Query["ids"].ToString().Split(',').Select(id => int.TryParse(id, out var parsedId) ? parsedId : (int?)null).Where(id => id.HasValue).Select(id => id.Value).ToList();
+    var idsFromHeader = request.Headers["X-Employee-Ids"].ToString().Split(',').Select(id => int.TryParse(id, out var parsedId) ? parsedId : (int?)null).Where(id => id.HasValue).Select(id => id.Value).ToList();
+
+    var filteredEmployees = EmployeesRepository.GetAllEmployees().Where(e => idsFromQuery.Contains(e.Id) || idsFromHeader.Contains(e.Id)).ToList();
+
+    return Results.Ok(filteredEmployees);
+});
+
+
+
+
+
+
+
+
+
 //create the routes for CRUD operations
 app.MapGet("/employees", () => EmployeesRepository.GetAllEmployees());
 app.MapGet("/employees/{id}", (int id) => EmployeesRepository.GetEmployeeById(id) is Employee employee ? Results.Ok(employee) : Results.NotFound());
@@ -90,4 +134,11 @@ static class EmployeesRepository
     {
         return Employees.FirstOrDefault(e => e.Id == id);
     }
+}
+
+class GetEmployeeParameter
+{
+    public int Id { get; set; }
+    public string? Name { get; set; }
+    public string? Position { get; set; }
 }
